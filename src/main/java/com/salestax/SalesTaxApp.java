@@ -7,7 +7,7 @@ public class SalesTaxApp {
     public static void main(String[] args) {
         
         Scanner scanner = new Scanner(System.in);
-        InputParser parser = new InputParser(scanner);
+        InputParser parser = new InputParser();
         Receipt receipt = new Receipt();
 
         System.out.println("=== Sales Tax Calculator ===");

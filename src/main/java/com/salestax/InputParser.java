@@ -2,15 +2,8 @@ package com.salestax;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class InputParser {
-    
-    private final Scanner scanner;
-
-    public InputParser(Scanner scanner) {
-        this.scanner = scanner;
-    }
 
     public Product parseProductInput(String line) {
         try {
