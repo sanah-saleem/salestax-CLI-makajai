@@ -26,7 +26,7 @@ public class Receipt {
 
     public void print() {
         receiptItems.forEach(i -> System.out.println(i));
-        System.out.println("Sales Tax : " + totalSalesTax());
+        System.out.println("Sales Taxes : " + totalSalesTax());
         System.out.println("Total : " + totalAmount());
     }
     

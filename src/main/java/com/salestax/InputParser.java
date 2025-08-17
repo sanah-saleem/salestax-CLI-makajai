@@ -22,11 +22,11 @@ public class InputParser {
 
             BigDecimal price = new BigDecimal(parts[1].trim());
             String[] qtyAndName = parts[0].trim().split(" ", 2);
-            int quantity = Integer.parseInt(qtyAndName[0]);
             String name = qtyAndName[1];
             boolean imported = Arrays.asList(name.toLowerCase().split(" "))
                           .contains("imported");
-            ProductCategory category = promptForCategory(name);
+            
+            ProductCategory category = findCategory(name);
 
             return new Product(name, category, imported, price);
 
@@ -35,19 +35,12 @@ public class InputParser {
         }
     }
 
-    private ProductCategory promptForCategory(String productName) {
-        System.out.println("\nWhat category is '" + productName + "'?");
-        ProductCategory.printAllCategories();
-        
-        while (true) {
-            System.out.print("Enter category number (1-4): ");
-            try {
-                int choice = Integer.parseInt(scanner.nextLine().trim());
-                return ProductCategory.fromId(choice);
-            } catch (IllegalArgumentException e) {
-                System.out.println("Invalid choice. Please enter 1, 2, 3, or 4.");
-            }
-        }
+    private ProductCategory findCategory(String productName) {
+        String lower = productName.toLowerCase();
+        if (lower.contains("book")) return ProductCategory.BOOK;
+        if (lower.contains("chocolate") || lower.contains("pizza") || lower.contains("food")) return ProductCategory.FOOD;
+        if (lower.contains("pill") || lower.contains("medicine") || lower.contains("headache")) return ProductCategory.MEDICAL;
+        return ProductCategory.OTHER;
     }
 
     public int parseQuantity(String line) {

@@ -30,9 +30,6 @@ public class SalesTaxApp {
                 int quantity = parser.parseQuantity(line);
                 Product product = parser.parseProductInput(line);
                 receipt.addReceiptItem(new ReceiptItem(quantity, product));
-                System.out.println("Added: " + quantity + " " + product.getName() + 
-                                 " (" + product.getCategory().getDisplayName() + 
-                                 (product.isImported() ? ", Imported" : "") + ")");
             }
             catch (IllegalArgumentException e) {
                 System.out.println("Error: " + e.getMessage());
