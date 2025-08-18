@@ -1,7 +1,6 @@
 package com.salestax;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 
 public class InputParser {
 
@@ -16,24 +15,12 @@ public class InputParser {
             BigDecimal price = new BigDecimal(parts[1].trim());
             String[] qtyAndName = parts[0].trim().split(" ", 2);
             String name = qtyAndName[1];
-            boolean imported = Arrays.asList(name.toLowerCase().split(" "))
-                          .contains("imported");
-            
-            ProductCategory category = findCategory(name);
 
-            return new Product(name, category, imported, price);
+            return Product.createProduct(name, price);
 
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new IllegalArgumentException("Invalid input format: " + line + " , " + e.getMessage(), e);
         }
-    }
-
-    private ProductCategory findCategory(String productName) {
-        String lower = productName.toLowerCase();
-        if (lower.contains("book")) return ProductCategory.BOOK;
-        if (lower.contains("chocolate") || lower.contains("pizza") || lower.contains("food")) return ProductCategory.FOOD;
-        if (lower.contains("pill") || lower.contains("medicine") || lower.contains("headache")) return ProductCategory.MEDICAL;
-        return ProductCategory.OTHER;
     }
 
     public int parseQuantity(String line) {

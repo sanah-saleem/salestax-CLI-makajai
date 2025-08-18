@@ -9,6 +9,7 @@ public class SalesTaxApp {
         Scanner scanner = new Scanner(System.in);
         InputParser parser = new InputParser();
         Receipt receipt = new Receipt();
+        TaxCalculator taxCalculator = new TaxCalculator();
 
         System.out.println("=== Sales Tax Calculator ===");
         System.out.println("Enter items in format: 'quantity itemname at price'");
@@ -29,7 +30,7 @@ public class SalesTaxApp {
             try {
                 int quantity = parser.parseQuantity(line);
                 Product product = parser.parseProductInput(line);
-                receipt.addReceiptItem(new ReceiptItem(quantity, product));
+                receipt.addReceiptItem(new ReceiptItem(quantity, product, taxCalculator));
             }
             catch (IllegalArgumentException e) {
                 System.out.println("Error: " + e.getMessage());
@@ -39,6 +40,7 @@ public class SalesTaxApp {
 
         if (receipt.totalAmount().equals(BigDecimal.ZERO)) {
             System.out.println("No items entered. Goodbye!");
+            scanner.close();
             return;
         }
 
